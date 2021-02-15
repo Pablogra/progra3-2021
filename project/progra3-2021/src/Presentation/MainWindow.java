@@ -43,7 +43,10 @@ public class MainWindow extends javax.swing.JFrame {
         panelActivityEdit1 = new Presentation.PanelActivityEdit();
         jPanel4 = new javax.swing.JPanel();
         jTabbedPane5 = new javax.swing.JTabbedPane();
-        panelActivityTypeAdd1 = new Presentation.PanelActivityTypeAdd();
+        jPanel6 = new javax.swing.JPanel();
+        panelActivityTypeAdd2 = new Presentation.PanelActivityTypeAdd();
+        jPanel10 = new javax.swing.JPanel();
+        jPanel11 = new javax.swing.JPanel();
         panelActivityTypeEdit1 = new Presentation.PanelActivityTypeEdit();
         jPanel5 = new javax.swing.JPanel();
         jTabbedPane6 = new javax.swing.JTabbedPane();
@@ -184,31 +187,40 @@ public class MainWindow extends javax.swing.JFrame {
 
         jTabbedPane2.addTab("Activity", jPanel3);
 
-        javax.swing.GroupLayout panelActivityTypeAdd1Layout = new javax.swing.GroupLayout(panelActivityTypeAdd1);
-        panelActivityTypeAdd1.setLayout(panelActivityTypeAdd1Layout);
-        panelActivityTypeAdd1Layout.setHorizontalGroup(
-            panelActivityTypeAdd1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 969, Short.MAX_VALUE)
+        jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel6.add(panelActivityTypeAdd2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, -1, -1));
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
         );
-        panelActivityTypeAdd1Layout.setVerticalGroup(
-            panelActivityTypeAdd1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 312, Short.MAX_VALUE)
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
         );
 
-        jTabbedPane5.addTab("Add", panelActivityTypeAdd1);
+        jPanel6.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, -20, -1, -1));
 
-        javax.swing.GroupLayout panelActivityTypeEdit1Layout = new javax.swing.GroupLayout(panelActivityTypeEdit1);
-        panelActivityTypeEdit1.setLayout(panelActivityTypeEdit1Layout);
-        panelActivityTypeEdit1Layout.setHorizontalGroup(
-            panelActivityTypeEdit1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 969, Short.MAX_VALUE)
+        jTabbedPane5.addTab("Add", jPanel6);
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addComponent(panelActivityTypeEdit1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 292, Short.MAX_VALUE))
         );
-        panelActivityTypeEdit1Layout.setVerticalGroup(
-            panelActivityTypeEdit1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 312, Short.MAX_VALUE)
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addComponent(panelActivityTypeEdit1, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        jTabbedPane5.addTab("Edit", panelActivityTypeEdit1);
+        jTabbedPane5.addTab("Edit", jPanel11);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -261,7 +273,7 @@ public class MainWindow extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 527, Short.MAX_VALUE)
+                .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 527, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -305,10 +317,13 @@ public class MainWindow extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
@@ -320,7 +335,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane6;
     private Presentation.PanelActivityAdd panelActivityAdd1;
     private Presentation.PanelActivityEdit panelActivityEdit1;
-    private Presentation.PanelActivityTypeAdd panelActivityTypeAdd1;
+    private Presentation.PanelActivityTypeAdd panelActivityTypeAdd2;
     private Presentation.PanelActivityTypeEdit panelActivityTypeEdit1;
     private Presentation.PanelEmailsEdit panelEmailsEdit1;
     private Presentation.PanelUsersAdd panelUsersAdd2;
