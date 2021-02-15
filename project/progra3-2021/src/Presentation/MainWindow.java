@@ -35,8 +35,8 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel9 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jTabbedPane3 = new javax.swing.JTabbedPane();
-        panelUsersAdd1 = new Presentation.PanelUsersAdd();
-        panelUsersEdit1 = new Presentation.PanelUsersEdit();
+        panelUsersAdd2 = new Presentation.PanelUsersAdd();
+        panelUsersEdit2 = new Presentation.PanelUsersEdit();
         jPanel3 = new javax.swing.JPanel();
         jTabbedPane4 = new javax.swing.JTabbedPane();
         panelActivityAdd1 = new Presentation.PanelActivityAdd();
@@ -108,31 +108,20 @@ public class MainWindow extends javax.swing.JFrame {
 
         jTabbedPane2.addTab("Scoreboard", jPanel1);
 
-        javax.swing.GroupLayout panelUsersAdd1Layout = new javax.swing.GroupLayout(panelUsersAdd1);
-        panelUsersAdd1.setLayout(panelUsersAdd1Layout);
-        panelUsersAdd1Layout.setHorizontalGroup(
-            panelUsersAdd1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 969, Short.MAX_VALUE)
+        jTabbedPane3.addTab("Add", panelUsersAdd2);
+
+        javax.swing.GroupLayout panelUsersEdit2Layout = new javax.swing.GroupLayout(panelUsersEdit2);
+        panelUsersEdit2.setLayout(panelUsersEdit2Layout);
+        panelUsersEdit2Layout.setHorizontalGroup(
+            panelUsersEdit2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 972, Short.MAX_VALUE)
         );
-        panelUsersAdd1Layout.setVerticalGroup(
-            panelUsersAdd1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 483, Short.MAX_VALUE)
+        panelUsersEdit2Layout.setVerticalGroup(
+            panelUsersEdit2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 491, Short.MAX_VALUE)
         );
 
-        jTabbedPane3.addTab("Add", panelUsersAdd1);
-
-        javax.swing.GroupLayout panelUsersEdit1Layout = new javax.swing.GroupLayout(panelUsersEdit1);
-        panelUsersEdit1.setLayout(panelUsersEdit1Layout);
-        panelUsersEdit1Layout.setHorizontalGroup(
-            panelUsersEdit1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 969, Short.MAX_VALUE)
-        );
-        panelUsersEdit1Layout.setVerticalGroup(
-            panelUsersEdit1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 483, Short.MAX_VALUE)
-        );
-
-        jTabbedPane3.addTab("Edit", panelUsersEdit1);
+        jTabbedPane3.addTab("Edit", panelUsersEdit2);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -272,7 +261,7 @@ public class MainWindow extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 527, Short.MAX_VALUE)
+                .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 527, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -334,7 +323,7 @@ public class MainWindow extends javax.swing.JFrame {
     private Presentation.PanelActivityTypeAdd panelActivityTypeAdd1;
     private Presentation.PanelActivityTypeEdit panelActivityTypeEdit1;
     private Presentation.PanelEmailsEdit panelEmailsEdit1;
-    private Presentation.PanelUsersAdd panelUsersAdd1;
-    private Presentation.PanelUsersEdit panelUsersEdit1;
+    private Presentation.PanelUsersAdd panelUsersAdd2;
+    private Presentation.PanelUsersEdit panelUsersEdit2;
     // End of variables declaration//GEN-END:variables
 }
