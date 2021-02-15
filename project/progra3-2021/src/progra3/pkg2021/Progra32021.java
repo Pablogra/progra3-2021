@@ -21,7 +21,7 @@ public class Progra32021 {
         // TODO code application logic here
         
         JFrame mainWindow = new MainWindow();
-        mainWindow.setVisible(true);
+        mainWindow.setVisible(true);//test
     }
     
 }
