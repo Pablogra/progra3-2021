@@ -5,6 +5,9 @@
  */
 package progra3.pkg2021;
 
+import Presentation.MainWindow;
+import javax.swing.JFrame;
+
 /**
  *
  * @author pablo
@@ -16,6 +19,9 @@ public class Progra32021 {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        
+        JFrame mainWindow = new MainWindow();
+        mainWindow.setVisible(true);
     }
     
 }

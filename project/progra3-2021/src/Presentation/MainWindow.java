@@ -61,6 +61,7 @@ public class MainWindow extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Tech Points");
 
         jTabbedPane2.setTabPlacement(javax.swing.JTabbedPane.LEFT);
 
