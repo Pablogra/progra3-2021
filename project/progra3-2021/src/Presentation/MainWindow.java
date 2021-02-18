@@ -5,6 +5,9 @@
  */
 package Presentation;
 
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+
 /**
  *
  * @author pablo
@@ -15,6 +18,12 @@ public class MainWindow extends javax.swing.JFrame {
      * Creates new form MainWindow
      */
     public MainWindow() {
+        
+        JFrame rootWindowComponent = (JFrame)SwingUtilities.getRoot(this);
+        final DialogLogin loginDialog = new  DialogLogin(rootWindowComponent, true);        
+        loginDialog.pack();
+        loginDialog.setVisible(true);
+        
         initComponents();
     }
 
@@ -31,12 +40,12 @@ public class MainWindow extends javax.swing.JFrame {
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel7 = new javax.swing.JPanel();
-        jPanel9 = new javax.swing.JPanel();
+        panelScoreboardAllTime1 = new Presentation.PanelScoreboardAllTime();
+        panelScoreboardCurrentYear2 = new Presentation.PanelScoreboardCurrentYear();
         jPanel2 = new javax.swing.JPanel();
         jTabbedPane3 = new javax.swing.JTabbedPane();
-        panelUsersAdd2 = new Presentation.PanelUsersAdd();
-        panelUsersEdit2 = new Presentation.PanelUsersEdit();
+        panelUsersAdd1 = new Presentation.PanelUsersAdd();
+        panelUsersEdit1 = new Presentation.PanelUsersEdit();
         jPanel3 = new javax.swing.JPanel();
         jTabbedPane4 = new javax.swing.JTabbedPane();
         panelActivityAdd1 = new Presentation.PanelActivityAdd();
@@ -71,63 +80,17 @@ public class MainWindow extends javax.swing.JFrame {
 
         jTabbedPane2.setTabPlacement(javax.swing.JTabbedPane.LEFT);
 
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1168, Short.MAX_VALUE)
-        );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 583, Short.MAX_VALUE)
-        );
+        jPanel1.setLayout(new java.awt.BorderLayout());
 
-        jTabbedPane1.addTab("All time", jPanel7);
+        jTabbedPane1.addTab("All Time", panelScoreboardAllTime1);
+        jTabbedPane1.addTab("Current Year", panelScoreboardCurrentYear2);
 
-        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-        jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1168, Short.MAX_VALUE)
-        );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 583, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("Current year", jPanel9);
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1173, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTabbedPane1))
-        );
+        jPanel1.add(jTabbedPane1, java.awt.BorderLayout.PAGE_START);
 
         jTabbedPane2.addTab("Scoreboard", jPanel1);
 
-        jTabbedPane3.addTab("Add", panelUsersAdd2);
-
-        javax.swing.GroupLayout panelUsersEdit2Layout = new javax.swing.GroupLayout(panelUsersEdit2);
-        panelUsersEdit2.setLayout(panelUsersEdit2Layout);
-        panelUsersEdit2Layout.setHorizontalGroup(
-            panelUsersEdit2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1168, Short.MAX_VALUE)
-        );
-        panelUsersEdit2Layout.setVerticalGroup(
-            panelUsersEdit2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 583, Short.MAX_VALUE)
-        );
-
-        jTabbedPane3.addTab("Edit", panelUsersEdit2);
+        jTabbedPane3.addTab("Add", panelUsersAdd1);
+        jTabbedPane3.addTab("Edit", panelUsersEdit1);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -350,9 +313,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTabbedPane jTabbedPane3;
@@ -366,7 +327,9 @@ public class MainWindow extends javax.swing.JFrame {
     private Presentation.PanelActivityTypeAdd panelActivityTypeAdd2;
     private Presentation.PanelActivityTypeEdit panelActivityTypeEdit1;
     private Presentation.PanelEmailsEdit panelEmailsEdit1;
-    private Presentation.PanelUsersAdd panelUsersAdd2;
-    private Presentation.PanelUsersEdit panelUsersEdit2;
+    private Presentation.PanelScoreboardAllTime panelScoreboardAllTime1;
+    private Presentation.PanelScoreboardCurrentYear panelScoreboardCurrentYear2;
+    private Presentation.PanelUsersAdd panelUsersAdd1;
+    private Presentation.PanelUsersEdit panelUsersEdit1;
     // End of variables declaration//GEN-END:variables
 }
