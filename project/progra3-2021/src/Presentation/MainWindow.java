@@ -40,7 +40,7 @@ public class MainWindow extends javax.swing.JFrame {
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        panelScoreboardAllTime1 = new Presentation.PanelScoreboardAllTime();
+        panelScoreboardAllTime2 = new Presentation.PanelScoreboardAllTime();
         panelScoreboardCurrentYear2 = new Presentation.PanelScoreboardCurrentYear();
         jPanel2 = new javax.swing.JPanel();
         jTabbedPane3 = new javax.swing.JTabbedPane();
@@ -82,7 +82,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         jPanel1.setLayout(new java.awt.BorderLayout());
 
-        jTabbedPane1.addTab("All Time", panelScoreboardAllTime1);
+        jTabbedPane1.addTab("All time", panelScoreboardAllTime2);
         jTabbedPane1.addTab("Current Year", panelScoreboardCurrentYear2);
 
         jPanel1.add(jTabbedPane1, java.awt.BorderLayout.PAGE_START);
@@ -327,7 +327,7 @@ public class MainWindow extends javax.swing.JFrame {
     private Presentation.PanelActivityTypeAdd panelActivityTypeAdd2;
     private Presentation.PanelActivityTypeEdit panelActivityTypeEdit1;
     private Presentation.PanelEmailsEdit panelEmailsEdit1;
-    private Presentation.PanelScoreboardAllTime panelScoreboardAllTime1;
+    private Presentation.PanelScoreboardAllTime panelScoreboardAllTime2;
     private Presentation.PanelScoreboardCurrentYear panelScoreboardCurrentYear2;
     private Presentation.PanelUsersAdd panelUsersAdd1;
     private Presentation.PanelUsersEdit panelUsersEdit1;
