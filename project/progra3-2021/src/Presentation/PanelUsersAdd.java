@@ -5,6 +5,12 @@
  */
 package Presentation;
 
+import Business.User;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author pablo
@@ -16,6 +22,7 @@ public class PanelUsersAdd extends javax.swing.JPanel {
      */
     public PanelUsersAdd() {
         initComponents();
+
     }
 
     /**
@@ -31,13 +38,13 @@ public class PanelUsersAdd extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        txtUserName = new javax.swing.JTextField();
+        txtFullName = new javax.swing.JTextField();
+        txtEmail = new javax.swing.JTextField();
+        btnImage = new javax.swing.JLabel();
+        btnUpload = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
+        txtpassword = new javax.swing.JPasswordField();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -52,35 +59,60 @@ public class PanelUsersAdd extends javax.swing.JPanel {
 
         jLabel5.setText("Password");
         add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 113, -1, -1));
-        add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 11, 171, -1));
-        add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 42, 171, -1));
-        add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 79, 171, -1));
-        add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 110, 171, -1));
+        add(txtUserName, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 11, 171, -1));
+        add(txtFullName, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 42, 171, -1));
+        add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 79, 171, -1));
 
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("Imagen de perfil");
-        jLabel6.setBorder(new javax.swing.border.MatteBorder(null));
-        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 40, 90, 90));
+        btnImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnImage.setText("Imagen de perfil");
+        btnImage.setBorder(new javax.swing.border.MatteBorder(null));
+        add(btnImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 50, 90, 90));
 
-        jButton1.setText("Upload");
-        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 10, -1, -1));
+        btnUpload.setText("Upload");
+        add(btnUpload, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 10, -1, -1));
 
-        jButton2.setText("Save");
-        add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 170, -1, -1));
+        btnSave.setText("Save");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
+        add(btnSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 160, -1, -1));
+        add(txtpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 110, 170, -1));
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+       
+        User u = new User();
+        u.setUserName(txtUserName.getText());
+        u.setFullName(txtFullName.getText());
+        u.setEmail(txtEmail.getText());  
+        u.setPassword(txtpassword.getText());
+        u.setStatus(true);
+        try {
+            u.Create();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PanelUsersAdd.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Username already exists");
+            String error = ex.getMessage();
+            Logger.getLogger(PanelUsersAdd.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_btnSaveActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel btnImage;
+    private javax.swing.JButton btnSave;
+    private javax.swing.JButton btnUpload;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtFullName;
+    private javax.swing.JTextField txtUserName;
+    private javax.swing.JPasswordField txtpassword;
     // End of variables declaration//GEN-END:variables
 }
