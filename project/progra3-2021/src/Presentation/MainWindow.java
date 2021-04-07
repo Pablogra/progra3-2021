@@ -5,6 +5,13 @@
  */
 package Presentation;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
@@ -17,16 +24,14 @@ public class MainWindow extends javax.swing.JFrame {
     /**
      * Creates new form MainWindow
      */
-    public MainWindow() {
-        
+    public MainWindow() {        
         JFrame rootWindowComponent = (JFrame)SwingUtilities.getRoot(this);
-        final DialogLogin loginDialog = new  DialogLogin(rootWindowComponent, true);        
+        final DialogLogin loginDialog = new  DialogLogin(rootWindowComponent, true);
         loginDialog.pack();
         loginDialog.setVisible(true);
-        
         initComponents();
-    }
-
+    }    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
