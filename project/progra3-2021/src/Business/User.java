@@ -18,6 +18,7 @@ import java.util.logging.Logger;
  */
 public class User {
 
+    private int userID;
     private String userName;
     private String fullName;
     private String email;
@@ -25,12 +26,29 @@ public class User {
     private boolean status;
     private boolean isAdmin;
 
-    public User(String userName, String fullName, String email, String password, boolean status, boolean isAdmin) {
+    public User(int userID, String userName, String fullName, String email, String password, boolean status, boolean isAdmin) {
+        this.userID = userID;
         this.userName = userName;
         this.fullName = fullName;
         this.email = email;
         this.password = password;
         this.status = status;
+        this.isAdmin = isAdmin;
+    }
+
+    public int getUserID() {
+        return userID;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
+    }
+
+    public boolean isIsAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(boolean isAdmin) {
         this.isAdmin = isAdmin;
     }
 
@@ -115,9 +133,13 @@ public class User {
         try {
             while (rs.next()) {
                 User u = new User();
+                u.setUserID(rs.getInt("userId"));
                 u.setUserName(rs.getString("username"));
                 u.setFullName(rs.getString("fullname"));
                 u.setEmail(rs.getString("email"));
+                u.setPassword(rs.getString("password"));
+                u.setStatus(rs.getBoolean("status"));
+                u.setIsAdmin(rs.getBoolean("isAdmin"));
                 list.add(u);
             }
         } catch (Exception ex) {
@@ -135,12 +157,13 @@ public class User {
 
             try {
                 rs.first();
-                this.setUserName(rs.getString("username"));
-                this.setFullName(rs.getString("fullname"));
-                this.setEmail(rs.getString("email"));
-                this.setPassword(rs.getString("password"));
-                this.setStatus(rs.getBoolean("status"));
-                this.setIsAdmin(rs.getBoolean("isAdmin"));
+                setUserID(rs.getInt("userId"));
+                setUserName(rs.getString("username"));
+                setFullName(rs.getString("fullname"));
+                setEmail(rs.getString("email"));
+                setPassword(rs.getString("password"));
+                setStatus(rs.getBoolean("status"));
+                setIsAdmin(rs.getBoolean("isAdmin"));
 
             } catch (SQLException e) {
                 String error = e.getMessage();

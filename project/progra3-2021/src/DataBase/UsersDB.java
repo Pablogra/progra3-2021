@@ -38,8 +38,8 @@ public class UsersDB {
 
         StringBuilder sbuf = new StringBuilder();
         Formatter fmt = new Formatter(sbuf);
-        fmt.format("INSERT INTO User (username, fullname, email,password,status) "
-                + "VALUES ('%s','%s','%s','%s',%b);", user.getUserName(), user.getFullName(), user.getEmail(), user.getPassword(), user.isStatus());
+        fmt.format("INSERT INTO User (username, fullname, email,password,status,isAdmin) "
+                + "VALUES ('%s','%s','%s','%s',%b,%b);", user.getUserName(), user.getFullName(), user.getEmail(), user.getPassword(), user.isStatus(), user.isIsAdmin());
 
         DataBaseConnection con = new DataBaseConnection(sbuf.toString(), false);
         con.ExecuteQuery();
@@ -50,8 +50,8 @@ public class UsersDB {
         StringBuilder sbuf = new StringBuilder();
         Formatter fmt = new Formatter(sbuf);
 
-        fmt.format("SELECT username, fullname, email,password,status, isAdmin FROM User  WHERE "
-                + "username = '%d';", u.getUserName());
+        fmt.format("SELECT userid,username, fullname, email,password,status,isAdmin FROM User  WHERE "
+                + "userId = %d;", u.getUserID());
 
         DataBaseConnection con = new DataBaseConnection(sbuf.toString(), true);
         con.setWaitForResults(true);
@@ -77,13 +77,15 @@ public class UsersDB {
         StringBuilder sbuf = new StringBuilder();
         Formatter fmt = new Formatter(sbuf);
 
-        fmt.format("UPDATE User SET fullname = '%s', email = '%s', password = '%s', status = %b "
-                + "WHERE username = '%s';",
+        fmt.format("UPDATE User SET username = '%s',fullname = '%s', email = '%s', password = '%s', status = %b, isAdmin = %b "
+                + "WHERE userId = %d;",
+                user.getUserName(),
                 user.getFullName(),
                 user.getEmail(),
                 user.getPassword(),
                 user.isStatus(),
-                user.getUserName());
+                user.isIsAdmin(),
+                user.getUserID());
 
         DataBaseConnection con = new DataBaseConnection(sbuf.toString(), false);
         con.ExecuteQuery();
@@ -95,7 +97,7 @@ public class UsersDB {
         Formatter fmt = new Formatter(sbuf);
 
         fmt.format("DELETE FROM User WHERE "
-                + "username = '%s';", user.getUserName());
+                + "userId = %d;", user.getUserID());
 
         DataBaseConnection con = new DataBaseConnection(sbuf.toString(), false);
         con.ExecuteQuery();
@@ -105,7 +107,7 @@ public class UsersDB {
         StringBuilder sbuf = new StringBuilder();
         Formatter fmt = new Formatter(sbuf);
 
-        fmt.format("SELECT username, fullname, email FROM User;");
+        fmt.format("SELECT userId,username, fullname, email,password,status,isAdmin FROM User;");
 
         DataBaseConnection con = new DataBaseConnection(sbuf.toString(), true);
         con.setWaitForResults(true);
