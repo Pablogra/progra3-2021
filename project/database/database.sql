@@ -21,19 +21,16 @@ CREATE TABLE `activitytype` (
 
 
 CREATE TABLE `activity` (
-  `idActivity` INT NOT NULL AUTO_INCREMENT,
-  `idActivityType` INT NOT NULL,
-  `Name` VARCHAR(255) NOT NULL,
-  `Title` VARCHAR(255) NOT NULL,
-  `Date` DATETIME NOT NULL,
-  `points` INT NOT NULL,
+  `idActivity` int NOT NULL AUTO_INCREMENT,
+  `idActivityType` int NOT NULL,
+  `Name` varchar(255) NOT NULL,
+  `Points` int NOT NULL,
+  `Description` varchar(255) NOT NULL,
   PRIMARY KEY (`idActivity`),
-  INDEX `fkActivityType_idx` (`idActivityType` ASC) VISIBLE,
-  CONSTRAINT `fkActivityType`
-    FOREIGN KEY (`idActivityType`)
-    REFERENCES `activitytype` (`idActivityType`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
+  KEY `fkActivityType_idx` (`idActivityType`),
+  CONSTRAINT `fkActivityType` FOREIGN KEY (`idActivityType`) REFERENCES `activitytype` (`idActivityType`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 
 
 CREATE TABLE `score` (
