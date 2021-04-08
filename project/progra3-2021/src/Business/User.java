@@ -23,18 +23,30 @@ public class User {
     private String email;
     private String password;
     private boolean status;
+    private boolean isAdmin;
 
-    public User(String userName, String fullName, String email, String password, boolean status) {
+    public User(String userName, String fullName, String email, String password, boolean status, boolean isAdmin) {
         this.userName = userName;
         this.fullName = fullName;
         this.email = email;
         this.password = password;
         this.status = status;
+        this.isAdmin = isAdmin;
     }
 
     public User() {
     }
 
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
+    }
+
+    
+    
     public String getUserName() {
         return userName;
     }
@@ -123,11 +135,12 @@ public class User {
 
             try {
                 rs.first();
-                this.setUserName(rs.getString("usename"));
+                this.setUserName(rs.getString("username"));
                 this.setFullName(rs.getString("fullname"));
                 this.setEmail(rs.getString("email"));
                 this.setPassword(rs.getString("password"));
                 this.setStatus(rs.getBoolean("status"));
+                this.setIsAdmin(rs.getBoolean("isAdmin"));
 
             } catch (SQLException e) {
                 String error = e.getMessage();
@@ -137,5 +150,27 @@ public class User {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    public boolean Login() {        
+        try {
+            UsersDB udb = new UsersDB();
+            udb.setUser(this);
+            ResultSet rs = udb.FindByCredentials();
+            boolean loginResult = rs.first();
+            
+            if (loginResult){
+                this.setUserName(rs.getString("username"));
+                this.setFullName(rs.getString("fullname"));
+                this.setEmail(rs.getString("email"));
+                this.setPassword(rs.getString("password"));
+                this.setStatus(rs.getBoolean("status"));
+                this.setIsAdmin(rs.getBoolean("isAdmin"));
+            }
+            return loginResult;
+            
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
 }
+

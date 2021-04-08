@@ -5,6 +5,7 @@
  */
 package Presentation;
 
+import Business.User;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -21,6 +22,7 @@ import javax.swing.SwingUtilities;
  */
 public class MainWindow extends javax.swing.JFrame {
 
+    private User currentUser;
     /**
      * Creates new form MainWindow
      */
@@ -30,12 +32,12 @@ public class MainWindow extends javax.swing.JFrame {
         loginDialog.pack();
         loginDialog.setVisible(true);
         initComponents();
-        
+        currentUser = loginDialog.getCurretUser();
         SetAdminUIComponents();        
     }
 
     private void SetAdminUIComponents() {
-        if (!IsAdmin()) {
+        if (!IsAdminUser(currentUser)) {
             tpMainPanel.remove(pUsers);
             tpMainPanel.remove(pActivity);
             tpMainPanel.remove(pActivityType);
@@ -43,8 +45,8 @@ public class MainWindow extends javax.swing.JFrame {
         }
     }
 
-    private boolean IsAdmin() {
-        return true;
+    private boolean IsAdminUser(User user) {
+        return user.isAdmin();
     }
     
     /**
