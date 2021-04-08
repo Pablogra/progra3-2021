@@ -75,7 +75,13 @@ public class ActivityType {
         ActivityTypeDB activityTypeDB = new ActivityTypeDB();
         activityTypeDB.setActivityType(activityType);
         activityTypeDB.Edit();
-    } 
+    }
+    
+    public void Edit() throws ClassNotFoundException, SQLException {        
+        ActivityTypeDB activityTypeDB = new ActivityTypeDB();
+        activityTypeDB.setActivityType(this);
+        activityTypeDB.Edit();
+    }
     
     public void Delete() throws ClassNotFoundException, SQLException {
         ActivityTypeDB activityTypeDB = new ActivityTypeDB();
@@ -94,7 +100,7 @@ public class ActivityType {
                 a.setIdActivityType(rs.getInt("IdActivityType"));
                 a.setName(rs.getString("Name"));
                 a.setDescription(rs.getString("Description"));
-                a.setPoints(rs.getInt("Description"));
+                a.setPoints(rs.getInt("Points"));
                 list.add(a);
             }            
         } catch (Exception ex) {

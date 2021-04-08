@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 
 /**
@@ -37,14 +38,17 @@ public class PanelActivityTypeEdit extends javax.swing.JPanel {
         ArrayList<ActivityType> allActivityTypes = at.List();
         
         listActivityTypes.add(0);
-        lstActivityTypes.add(new JLabel("--Seleccione--"));
+        
+        DefaultListModel listModel = new DefaultListModel();
+        
+        listModel.addElement("--Seleccione--");
         
         for (int i = 0; i < allActivityTypes.size(); i++) {
-            lstActivityTypes.add(
-                    new JLabel( allActivityTypes.get(i).getName())
-            );            
+             listModel.addElement(allActivityTypes.get(i).getName());            
             listActivityTypes.add(allActivityTypes.get(i).getIdActivityType());
         }
+        
+        lstActivityTypes.setModel(listModel);
     }
 
     /**
@@ -69,6 +73,7 @@ public class PanelActivityTypeEdit extends javax.swing.JPanel {
         btmActivityTypeSave = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
 
+        lstActivityTypes.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         lstActivityTypes.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 lstActivityTypesValueChanged(evt);
@@ -88,6 +93,11 @@ public class PanelActivityTypeEdit extends javax.swing.JPanel {
         jLabel3.setText("Default points:");
 
         btmActivityTypeSave.setText("Save");
+        btmActivityTypeSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btmActivityTypeSaveActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("Find Activity:");
 
@@ -157,13 +167,38 @@ public class PanelActivityTypeEdit extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lstActivityTypesValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstActivityTypesValueChanged
-        ActivityType at = new ActivityType();        
-        int selectedId = listActivityTypes.get(lstActivityTypes.getSelectedIndex());        
+        LoadActivityType();
+        
+    }//GEN-LAST:event_lstActivityTypesValueChanged
+
+    private void LoadActivityType() {
+        ActivityType at = new ActivityType();
+        int selectedId = listActivityTypes.get(lstActivityTypes.getSelectedIndex());
         at.setIdActivityType(selectedId);
         at.Find();
         txtActivityTypeName.setText(at.getName());
-    }//GEN-LAST:event_lstActivityTypesValueChanged
+        txtActivityTypeDescription.setText(at.getDescription());
+        txtActivityTypeDefaultPoints.setText(String.valueOf(at.getPoints()));
+    }
 
+    private void btmActivityTypeSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmActivityTypeSaveActionPerformed
+        Edit();
+    }//GEN-LAST:event_btmActivityTypeSaveActionPerformed
+
+    private void Edit() {
+        try {            
+            int selectedId = listActivityTypes.get(lstActivityTypes.getSelectedIndex());
+            ActivityType at = new ActivityType();            
+            at.setIdActivityType(selectedId);
+            at.setName(txtActivityTypeName.getText());
+            at.setDescription(txtActivityTypeDescription.getText());
+            at.setPoints(Integer.parseInt(txtActivityTypeDefaultPoints.getText()));
+            at.Edit();
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(PanelActivityTypeAdd.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btmActivityTypeSave;

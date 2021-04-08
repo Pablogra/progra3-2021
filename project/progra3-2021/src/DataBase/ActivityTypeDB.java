@@ -33,16 +33,15 @@ public class ActivityTypeDB {
         this.activityType = activityType;
     }
     
-    public ResultSet Create() throws ClassNotFoundException, SQLException {
+    public void Create() throws ClassNotFoundException, SQLException {
         
         StringBuilder sbuf = new StringBuilder();
         Formatter fmt = new Formatter(sbuf);               
         fmt.format("INSERT INTO ActivityType (Name, Description, Points) "
-                + "VALUES (%s,%s,%s);", activityType.getName(), activityType.getDescription(), activityType.getPoints());
+                + "VALUES ('%s','%s','%s');", activityType.getName(), activityType.getDescription(), activityType.getPoints());
         
-        DataBaseConnection con = new DataBaseConnection(sbuf.toString(), true);
-        con.ExecuteQuery();
-        return con.getRs();
+        DataBaseConnection con = new DataBaseConnection(sbuf.toString(), false);
+        con.ExecuteQuery();        
     }
     
     public ResultSet Find() throws ClassNotFoundException, SQLException
@@ -52,7 +51,7 @@ public class ActivityTypeDB {
         StringBuilder sbuf = new StringBuilder();
         Formatter fmt = new Formatter(sbuf);
         
-        fmt.format("SELECT idActivityType, Name, Description, Points) FROM ActivityType  WHERE "
+        fmt.format("SELECT idActivityType, Name, Description, Points FROM ActivityType  WHERE "
                 + "idActivityType = %d;",activityType.getIdActivityType());
        
         DataBaseConnection con = new DataBaseConnection(sbuf.toString(), true);
@@ -61,22 +60,21 @@ public class ActivityTypeDB {
         return con.getRs();
     }
     
-    public ResultSet Edit() throws ClassNotFoundException, SQLException
+    public void Edit() throws ClassNotFoundException, SQLException
     {
         StringBuilder sbuf = new StringBuilder();
         Formatter fmt = new Formatter(sbuf);
         
-        fmt.format("UPDATE ActivityType SET Name = '%s', Description = '&s', Points = %d "
+        fmt.format("UPDATE ActivityType SET Name = '%s', Description = '%s', Points = %d "
                 + "WHERE idActivityType = %d;",
                 activityType.getName(),
                 activityType.getDescription(),
                 activityType.getPoints(),
                 activityType.getIdActivityType());
        
-        DataBaseConnection con = new DataBaseConnection(sbuf.toString(), true);        
+        DataBaseConnection con = new DataBaseConnection(sbuf.toString(), false);        
         
-        con.ExecuteQuery();
-        return con.getRs();
+        con.ExecuteQuery();        
     }
     
     public void Delete() throws ClassNotFoundException, SQLException
@@ -87,7 +85,7 @@ public class ActivityTypeDB {
         fmt.format("DELETE FROM ActivityType WHERE "
                 + "idActivityType = %d;",activityType.getIdActivityType());
         
-        DataBaseConnection con = new DataBaseConnection(sbuf.toString(), true);
+        DataBaseConnection con = new DataBaseConnection(sbuf.toString(), false);
         con.ExecuteQuery();
     }    
     

@@ -6,6 +6,9 @@
 package Presentation;
 
 import Business.ActivityType;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -113,12 +116,22 @@ public class PanelActivityTypeAdd extends javax.swing.JPanel {
     }//GEN-LAST:event_txtActivityTypeDefaultPointsActionPerformed
 
     private void btmActivityTypeSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmActivityTypeSaveActionPerformed
-        // TODO add your handling code here:
-        ActivityType at = new ActivityType();        
-        at.setName(txtActivityTypeName.getText());
-        at.setDescription(txtActivityTypeDescription.getText());
-        at.setPoints(Integer.parseInt(txtActivityTypeDefaultPoints.getText()));
+        Save();
+        
     }//GEN-LAST:event_btmActivityTypeSaveActionPerformed
+
+    private void Save() throws NumberFormatException {
+        try {
+            // TODO add your handling code here:
+            ActivityType at = new ActivityType();
+            at.setName(txtActivityTypeName.getText());
+            at.setDescription(txtActivityTypeDescription.getText());
+            at.setPoints(Integer.parseInt(txtActivityTypeDefaultPoints.getText()));
+            at.Create();
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(PanelActivityTypeAdd.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
