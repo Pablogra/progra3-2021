@@ -19,6 +19,9 @@
 *.tar.gz
 *.rar
 
+#Exceptions
+!mysql-connector-java-5.1.48.jar
+
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 /src/progra3-2021/nbproject/private/
