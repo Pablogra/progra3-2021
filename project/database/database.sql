@@ -20,6 +20,30 @@ CREATE TABLE `activitytype` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 
+CREATE TABLE `activity` (
+  `idActivity` INT NOT NULL AUTO_INCREMENT,
+  `idActivityType` INT NOT NULL,
+  `Name` VARCHAR(255) NOT NULL,
+  `Title` VARCHAR(255) NOT NULL,
+  `Date` DATETIME NOT NULL,
+  `points` INT NOT NULL,
+  PRIMARY KEY (`idActivity`),
+  INDEX `fkActivityType_idx` (`idActivityType` ASC) VISIBLE,
+  CONSTRAINT `fkActivityType`
+    FOREIGN KEY (`idActivityType`)
+    REFERENCES `activitytype` (`idActivityType`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+
+CREATE TABLE `score` (
+  `idScore` int NOT NULL AUTO_INCREMENT,
+  `idActivity` int NOT NULL,
+  `userID` int NOT NULL,
+  `date` datetime NOT NULL,
+  `points` int NOT NULL,
+  PRIMARY KEY (`idScore`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
 INSERT INTO User (username, fullname, email,password,status, isAdmin) VALUES ('Felipe','Felipe Camacho','f@ulatina.com','asdf',true, true);
