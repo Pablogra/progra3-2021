@@ -5,6 +5,12 @@
  */
 package Presentation;
 
+import Business.ScoreBoard;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
+
 /**
  *
  * @author pablo
@@ -14,8 +20,36 @@ public class PanelScoreboardAllTime extends javax.swing.JPanel {
     /**
      * Creates new form PanelScoreboardAllTime
      */
-    public PanelScoreboardAllTime() {
+    public PanelScoreboardAllTime() throws SQLException, ClassNotFoundException {
         initComponents();
+        TableList();
+        
+      
+        
+    }
+
+    private void TableList() throws SQLException, ClassNotFoundException {
+
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Name");
+        model.addColumn("Points");
+        model.addColumn("Position");
+        
+        ScoreBoard SB = new ScoreBoard();
+
+        ArrayList<ScoreBoard> Table = SB.ShowTable();
+         
+        for (int x = 0; x < Table.size(); x++) {
+            ScoreBoard a = Table.get(x);
+            
+            model.addRow(new Object[]{
+                a.getFullname(),
+                a.getPoints(),
+                a.getIdScore()
+            });
+        }
+
+        tblScore.setModel(model);
     }
 
     /**
@@ -28,9 +62,9 @@ public class PanelScoreboardAllTime extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tblScore = new javax.swing.JTable();
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tblScore.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -49,7 +83,7 @@ public class PanelScoreboardAllTime extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(tblScore);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -66,6 +100,7 @@ public class PanelScoreboardAllTime extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JTable tblScore;
     // End of variables declaration//GEN-END:variables
+
 }

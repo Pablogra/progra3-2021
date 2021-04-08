@@ -62,6 +62,13 @@ public class MainWindow extends javax.swing.JFrame {
         tpMainPanel = new javax.swing.JTabbedPane();
         pScoreboard = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
+        try {
+            panelScoreboardAllTime1 = new Presentation.PanelScoreboardAllTime();
+        } catch (java.sql.SQLException e1) {
+            e1.printStackTrace();
+        } catch (java.lang.ClassNotFoundException e2) {
+            e2.printStackTrace();
+        }
         pUsers = new javax.swing.JPanel();
         jTabbedPane3 = new javax.swing.JTabbedPane();
         panelUsersAdd1 = new Presentation.PanelUsersAdd();
@@ -102,6 +109,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         pScoreboard.setLayout(new java.awt.BorderLayout());
         pScoreboard.add(jTabbedPane1, java.awt.BorderLayout.PAGE_START);
+        pScoreboard.add(panelScoreboardAllTime1, java.awt.BorderLayout.CENTER);
 
         tpMainPanel.addTab("Scoreboard", pScoreboard);
 
@@ -342,6 +350,7 @@ public class MainWindow extends javax.swing.JFrame {
     private Presentation.PanelActivityTypeAdd panelActivityTypeAdd2;
     private Presentation.PanelActivityTypeEdit panelActivityTypeEdit1;
     private Presentation.PanelEmailsEdit panelEmailsEdit1;
+    private Presentation.PanelScoreboardAllTime panelScoreboardAllTime1;
     private Presentation.PanelUsersAdd panelUsersAdd1;
     private Presentation.PanelUsersEdit panelUsersEdit1;
     private javax.swing.JTabbedPane tpMainPanel;
