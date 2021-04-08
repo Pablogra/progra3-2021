@@ -105,7 +105,7 @@ public class ActivityType {
             }            
         } catch (Exception ex) {
             Logger.getLogger(ActivityType.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }   
         
         return list;
     }
