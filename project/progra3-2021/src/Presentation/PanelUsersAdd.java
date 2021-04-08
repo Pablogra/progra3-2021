@@ -45,6 +45,7 @@ public class PanelUsersAdd extends javax.swing.JPanel {
         btnUpload = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
         txtpassword = new javax.swing.JPasswordField();
+        checkBoxIsAdmin = new javax.swing.JCheckBox();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -77,8 +78,16 @@ public class PanelUsersAdd extends javax.swing.JPanel {
                 btnSaveActionPerformed(evt);
             }
         });
-        add(btnSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 160, -1, -1));
+        add(btnSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 160, 70, -1));
         add(txtpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 110, 170, -1));
+
+        checkBoxIsAdmin.setText("Admin");
+        checkBoxIsAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxIsAdminActionPerformed(evt);
+            }
+        });
+        add(checkBoxIsAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 140, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
@@ -89,6 +98,7 @@ public class PanelUsersAdd extends javax.swing.JPanel {
         u.setEmail(txtEmail.getText());  
         u.setPassword(txtpassword.getText());
         u.setStatus(true);
+        u.setIsAdmin(checkBoxIsAdmin.isSelected());
         try {
             u.Create();
         } catch (ClassNotFoundException ex) {
@@ -101,11 +111,16 @@ public class PanelUsersAdd extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btnSaveActionPerformed
 
+    private void checkBoxIsAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxIsAdminActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_checkBoxIsAdminActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnImage;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnUpload;
+    private javax.swing.JCheckBox checkBoxIsAdmin;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
