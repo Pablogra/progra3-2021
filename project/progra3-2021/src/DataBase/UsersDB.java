@@ -50,7 +50,7 @@ public class UsersDB {
         StringBuilder sbuf = new StringBuilder();
         Formatter fmt = new Formatter(sbuf);
 
-        fmt.format("SELECT username, fullname, email,password,status) FROM User  WHERE "
+        fmt.format("SELECT username, fullname, email,password,status, isAdmin FROM User  WHERE "
                 + "username = '%d';", u.getUserName());
 
         DataBaseConnection con = new DataBaseConnection(sbuf.toString(), true);
@@ -59,6 +59,20 @@ public class UsersDB {
         return con.getRs();
     }
 
+      public ResultSet FindByCredentials() throws ClassNotFoundException, SQLException {
+        User u = this.getUser();
+        StringBuilder sbuf = new StringBuilder();
+        Formatter fmt = new Formatter(sbuf);
+
+        fmt.format("SELECT username, fullname, email,password,status, isAdmin FROM User  WHERE "
+                + "username = '%s' AND password = '%s';", u.getUserName(),u.getPassword());
+
+        DataBaseConnection con = new DataBaseConnection(sbuf.toString(), true);
+        con.setWaitForResults(true);
+        con.ExecuteQuery();
+        return con.getRs();
+    }
+    
     public ResultSet Edit() throws ClassNotFoundException, SQLException {
         StringBuilder sbuf = new StringBuilder();
         Formatter fmt = new Formatter(sbuf);
