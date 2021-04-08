@@ -5,6 +5,11 @@
  */
 package Presentation;
 
+import Business.ActivityType;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author pablo
@@ -35,7 +40,7 @@ public class PanelActivityTypeAdd extends javax.swing.JPanel {
         txtActivityTypeDefaultPoints = new javax.swing.JTextField();
         btmActivityTypeSave = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtActivityTypeDescription = new javax.swing.JTextArea();
 
         jLabel3.setText("Name");
 
@@ -56,10 +61,10 @@ public class PanelActivityTypeAdd extends javax.swing.JPanel {
             }
         });
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jTextArea1.setText("Long description of the activity");
-        jScrollPane1.setViewportView(jTextArea1);
+        txtActivityTypeDescription.setColumns(20);
+        txtActivityTypeDescription.setRows(5);
+        txtActivityTypeDescription.setText("Long description of the activity");
+        jScrollPane1.setViewportView(txtActivityTypeDescription);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -111,8 +116,22 @@ public class PanelActivityTypeAdd extends javax.swing.JPanel {
     }//GEN-LAST:event_txtActivityTypeDefaultPointsActionPerformed
 
     private void btmActivityTypeSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmActivityTypeSaveActionPerformed
-        // TODO add your handling code here:
+        Save();
+        
     }//GEN-LAST:event_btmActivityTypeSaveActionPerformed
+
+    private void Save() throws NumberFormatException {
+        try {
+            // TODO add your handling code here:
+            ActivityType at = new ActivityType();
+            at.setName(txtActivityTypeName.getText());
+            at.setDescription(txtActivityTypeDescription.getText());
+            at.setPoints(Integer.parseInt(txtActivityTypeDefaultPoints.getText()));
+            at.Create();
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(PanelActivityTypeAdd.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -122,8 +141,8 @@ public class PanelActivityTypeAdd extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField txtActivityTypeDefaultPoints;
+    private javax.swing.JTextArea txtActivityTypeDescription;
     private javax.swing.JTextField txtActivityTypeName;
     // End of variables declaration//GEN-END:variables
 }

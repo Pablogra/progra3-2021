@@ -36,7 +36,7 @@ public class DataBaseConnection {
         //cnx = DriverManager.getConnection("jdbc:mysql://bnmqwhdnubsxsb37eiyi-mysql.services.clever-cloud.com/bnmqwhdnubsxsb37eiyi?user=uyry0qniuj7nebv4&password=RTGlmgsZdfWFl26AHzWl&useSSL=false"); 
         // cnx = DriverManager.getConnection("jdbc:mysql://bnmqwhdnubsxsb37eiyi-mysql.services.clever-cloud.com:3306/bnmqwhdnubsxsb37eiyi","user=uyry0qniuj7nebv4","password=RTGlmgsZdfWFl26AHzWl&useSSL=true"); 
   
-        cnx = DriverManager.getConnection("jdbc:mysql://localhost/proyectoprogra3?user=progra3&password=123456&useSSL=false");
+        cnx = DriverManager.getConnection("jdbc:mysql://localhost/progra3db?user=progra3&password=123456&useSSL=false");
         sta = cnx.createStatement(); 
          
         if (isWaitForResults()) { 
