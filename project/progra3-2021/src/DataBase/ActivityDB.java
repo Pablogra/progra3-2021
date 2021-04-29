@@ -70,9 +70,8 @@ public class ActivityDB {
         StringBuilder sbuf = new StringBuilder();
         Formatter fmt = new Formatter(sbuf);
         
-        fmt.format("UPDATE Activity SET idActivityType = %d, Name = '%s', Description = '%s', Points = %d "
+        fmt.format("UPDATE Activity SET Name = '%s', Description = '%s', Points = %d "
                 + "WHERE idActivity = %d;",
-                activity.getIdActivityType(),
                 activity.getName(),
                 activity.getDescription(),
                 activity.getPoints(),

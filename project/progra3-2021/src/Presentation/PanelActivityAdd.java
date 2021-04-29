@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -175,7 +176,10 @@ public class PanelActivityAdd extends javax.swing.JPanel {
             activity.setName(txtActivityName.getText());
             activity.setDescription(txtDescription.getText());
             activity.setPoints(Integer.parseInt(txtPoints.getText()));        
-            activity.Create();            
+            activity.Create();
+            JOptionPane.showMessageDialog(null, "Activity added");
+        
+          
         }
         
         

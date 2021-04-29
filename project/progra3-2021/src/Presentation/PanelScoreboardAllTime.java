@@ -8,6 +8,8 @@ package Presentation;
 import Business.ScoreBoard;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -83,6 +85,11 @@ public class PanelScoreboardAllTime extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        tblScore.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblScoreMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblScore);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -96,6 +103,16 @@ public class PanelScoreboardAllTime extends javax.swing.JPanel {
             .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tblScoreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblScoreMouseClicked
+        try {
+            TableList();
+        } catch (SQLException ex) {
+            Logger.getLogger(PanelScoreboardAllTime.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PanelScoreboardAllTime.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_tblScoreMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
