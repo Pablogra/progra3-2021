@@ -5,6 +5,15 @@
  */
 package Presentation;
 
+import Business.ActivityType;
+import Business.Email;
+import Emailer.EmailProperties;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
@@ -14,11 +23,38 @@ import javax.swing.SwingUtilities;
  */
 public class PanelEmailsEdit extends javax.swing.JPanel {
 
+    private ArrayList<Email> emails;
+    private ArrayList<Integer> emailIds;
+    
     /**
      * Creates new form PanelEmailsEdit
      */
     public PanelEmailsEdit() {
         initComponents();
+        LoadEmails();
+    }
+    
+    
+    public void LoadEmails()
+    {
+        try {
+            Email email = new Email();
+            emails =  email.List();
+            emailIds = new ArrayList<>();
+            
+            cbEmailSelector.removeAllItems();
+            
+            cbEmailSelector.addItem("-- Select an Email --");
+            emailIds.add(0);
+            
+            for (int i = 0; i < emails.size(); i++)
+            {
+                cbEmailSelector.addItem(emails.get(i).getEmailName());
+                emailIds.add(emails.get(i).getIdEmail());
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(PanelEmailsEdit.class.getName()).log(Level.SEVERE, null, ex);
+        }        
     }
 
     /**
@@ -32,24 +68,19 @@ public class PanelEmailsEdit extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         buttonPreviewEmail = new javax.swing.JButton();
         buttonSaveEmail = new javax.swing.JButton();
-        textEmailTitle = new javax.swing.JTextField();
-        comboBoxEmailSelector = new javax.swing.JComboBox<>();
+        textEmailSubject = new javax.swing.JTextField();
+        cbEmailSelector = new javax.swing.JComboBox<>();
         jScrollPane2 = new javax.swing.JScrollPane();
-        textEmailFooter = new javax.swing.JTextPane();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        textEmailHeader = new javax.swing.JTextPane();
+        textEmailMessage = new javax.swing.JTextPane();
 
         jLabel1.setText("Name:");
 
-        jLabel2.setText("Title:");
+        jLabel2.setText("Subject:");
 
-        jLabel3.setText("Header:");
-
-        jLabel4.setText("Footer:");
+        jLabel4.setText("Message (Token):");
 
         buttonPreviewEmail.setText("Preview the email");
         buttonPreviewEmail.addActionListener(new java.awt.event.ActionListener() {
@@ -59,12 +90,19 @@ public class PanelEmailsEdit extends javax.swing.JPanel {
         });
 
         buttonSaveEmail.setText("Save");
+        buttonSaveEmail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSaveEmailActionPerformed(evt);
+            }
+        });
 
-        comboBoxEmailSelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbEmailSelector.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbEmailSelectorItemStateChanged(evt);
+            }
+        });
 
-        jScrollPane2.setViewportView(textEmailFooter);
-
-        jScrollPane3.setViewportView(textEmailHeader);
+        jScrollPane2.setViewportView(textEmailMessage);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -74,7 +112,7 @@ public class PanelEmailsEdit extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 261, Short.MAX_VALUE)
+                        .addGap(0, 473, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(buttonSaveEmail, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(buttonPreviewEmail, javax.swing.GroupLayout.Alignment.TRAILING)))
@@ -82,13 +120,11 @@ public class PanelEmailsEdit extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel3))
-                        .addGap(15, 15, 15)
+                            .addComponent(jLabel4))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane3)
-                            .addComponent(textEmailTitle)
-                            .addComponent(comboBoxEmailSelector, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(textEmailSubject)
+                            .addComponent(cbEmailSelector, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jScrollPane2))))
                 .addContainerGap())
         );
@@ -98,52 +134,105 @@ public class PanelEmailsEdit extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(comboBoxEmailSelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbEmailSelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(textEmailTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(textEmailSubject, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(102, 102, 102)
                         .addComponent(jLabel4)
-                        .addGap(125, 125, 125)
-                        .addComponent(buttonPreviewEmail)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                        .addComponent(buttonSaveEmail))
+                        .addGap(117, 117, 117))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addGap(2, 2, 2)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(buttonPreviewEmail)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(buttonSaveEmail)
+                .addGap(108, 108, 108))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonPreviewEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPreviewEmailActionPerformed
-        // TODO add your handling code here:
         
-        JFrame rootWindowComponent = (JFrame)SwingUtilities.getRoot(this);
-        final DialogEmailPreview dialog = new  DialogEmailPreview(rootWindowComponent, true);        
-        dialog.pack();
-        dialog.setVisible(true);
+        int selected = cbEmailSelector.getSelectedIndex();
+        
+        if (selected > 0){            
+            try {
+                JFrame rootWindowComponent = (JFrame)SwingUtilities.getRoot(this);
+                final DialogEmailPreview dialog = new  DialogEmailPreview(rootWindowComponent, true);            
+                EmailProperties emailProperties = new EmailProperties();
+                emailProperties.setFrom("Scoreboard");
+                emailProperties.setMessage(textEmailMessage.getText());
+                emailProperties.setSubject(textEmailSubject.getText());
+                dialog.PreviewEmail(emails.get(selected - 1).getTemplate(), emailProperties);
+                dialog.pack();
+                dialog.setVisible(true);
+
+            } catch (IOException | URISyntaxException ex) {
+                Logger.getLogger(PanelEmailsEdit.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }//GEN-LAST:event_buttonPreviewEmailActionPerformed
 
+    private void cbEmailSelectorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbEmailSelectorItemStateChanged
+   
+        int selected = cbEmailSelector.getSelectedIndex();
+        
+        if (selected > 0){
+            try {
+                int emailid = emailIds.get(selected);
+                Email em = new Email();
+                em.setIdEmail(emailid);
+                em.Find();
+                textEmailSubject.setText(String.valueOf(em.getSubject()));
+                textEmailMessage.setText(String.valueOf(em.getMessage()));
+            } catch (ClassNotFoundException | SQLException ex) {
+                Logger.getLogger(PanelEmailsEdit.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        else
+        {
+            textEmailSubject.setText("");
+            textEmailMessage.setText("");
+        }
+    }//GEN-LAST:event_cbEmailSelectorItemStateChanged
 
+    private void buttonSaveEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSaveEmailActionPerformed
+        SaveChangesToEmail();
+        LoadEmails();
+    }//GEN-LAST:event_buttonSaveEmailActionPerformed
+
+    private void SaveChangesToEmail(){
+        int selected = cbEmailSelector.getSelectedIndex();
+        
+        if (selected > 0){            
+            try {
+                int emailid = emailIds.get(selected);
+                Email em = new Email();
+                em.setIdEmail(emailid);
+                em.setSubject(textEmailSubject.getText());
+                em.setMessage(textEmailMessage.getText());
+                em.setEmailName(emails.get(selected - 1).getEmailName());
+                
+                em.Edit();
+            } catch (ClassNotFoundException | SQLException ex) {
+                Logger.getLogger(PanelEmailsEdit.class.getName()).log(Level.SEVERE, null, ex);
+            }            
+        }   
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonPreviewEmail;
     private javax.swing.JButton buttonSaveEmail;
-    private javax.swing.JComboBox<String> comboBoxEmailSelector;
+    private javax.swing.JComboBox<String> cbEmailSelector;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextPane textEmailFooter;
-    private javax.swing.JTextPane textEmailHeader;
-    private javax.swing.JTextField textEmailTitle;
+    private javax.swing.JTextPane textEmailMessage;
+    private javax.swing.JTextField textEmailSubject;
     // End of variables declaration//GEN-END:variables
 }

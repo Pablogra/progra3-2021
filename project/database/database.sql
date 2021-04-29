@@ -43,6 +43,17 @@ CREATE TABLE `score` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
+CREATE TABLE `progra3db`.`email` (
+  `idemail` INT NOT NULL AUTO_INCREMENT,
+  `emailName` VARCHAR(255) NOT NULL,
+  `Subject` VARCHAR(255) NOT NULL,
+  `Message` VARCHAR(4096) NOT NULL,
+  `template` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`idemail`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+
 INSERT INTO User (username, fullname, email,password,status, isAdmin) VALUES ('Felipe','Felipe Camacho','f@ulatina.com','asdf',true, true);
 
 INSERT INTO User (username, fullname, email,password,status, isAdmin) VALUES ('Alberto','Alberto Abarca','A@ulatina.com','asdf',true, false);
@@ -50,3 +61,30 @@ INSERT INTO User (username, fullname, email,password,status, isAdmin) VALUES ('A
 INSERT INTO User (username, fullname, email,password,status, isAdmin) VALUES ('Pablo','Pablo Granados','p@ulatina.com','asdf',true, false);
 
 INSERT INTO User (username, fullname, email,password,status, isAdmin) VALUES ('Melany','Melany Vasquez','m@ulatina.com','asdf',true, true);
+
+
+INSERT INTO `progra3db`.`email`
+(`emailName`,
+`Subject`,
+`Message`,
+`Template`)
+VALUES
+('Welcome Email', '', '', 'WelcomeUser.html');
+
+
+INSERT INTO `progra3db`.`email`
+(`emailName`,
+`Subject`,
+`Message`,
+`Template`)
+VALUES
+('New Activity Created', '', '', 'NewActivity.html');
+
+INSERT INTO `progra3db`.`email`
+(`emailName`,
+`Subject`,
+`Message`,
+`Template`)
+VALUES
+('Scoreboard Updates', '', '', 'ScoreBoard.html');
+

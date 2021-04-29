@@ -6,11 +6,15 @@
 package Business;
 
 import DataBase.ActivityDB;
+import Emailer.EmailRenderer;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.mail.MessagingException;
 
 /**
  *
@@ -23,6 +27,7 @@ public class Activity {
     private String Description;
     private String Title;
     private int Points;
+    private EmailRenderer emailRenderer = new EmailRenderer();
 
     public Activity() {
     }
@@ -83,10 +88,11 @@ public class Activity {
         this.Points = Points;
     }
     
-    public void Create() throws ClassNotFoundException, SQLException {
+    public void Create() throws ClassNotFoundException, SQLException, MessagingException, IOException, URISyntaxException {
         ActivityDB activityDB = new ActivityDB();
         activityDB.setActivity(this);
         activityDB.Create();
+        emailRenderer.SendEmail(2);
     }
     
     public void Edit(Activity activity) throws ClassNotFoundException, SQLException {
@@ -143,9 +149,7 @@ public class Activity {
             setName(rs.getString("Name"));
             setDescription(rs.getString("Description"));               
             setPoints(rs.getInt("Points"));
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Activity.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
+        } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(Activity.class.getName()).log(Level.SEVERE, null, ex);
         }
    

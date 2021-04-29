@@ -5,17 +5,79 @@
  */
 package Presentation;
 
+import Emailer.EmailProperties;
+import Emailer.EmailRenderer;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.Hashtable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.text.Document;
+import javax.swing.text.html.HTMLEditorKit;
+
 /**
  *
  * @author pablo
  */
 public class PanelEmailPreview extends javax.swing.JPanel {
 
+    private EmailRenderer emailRenderer = new EmailRenderer();    
+    private EmailProperties emailProperties = new EmailProperties();
+    private String template = new String();
+
+    public EmailRenderer getEmailRenderer() {
+        return emailRenderer;
+    }
+
+    public void setEmailRenderer(EmailRenderer emailRenderer) {
+        this.emailRenderer = emailRenderer;
+    }
+
+    public EmailProperties getEmailProperties() {
+        return emailProperties;
+    }
+
+    public void setEmailProperties(EmailProperties emailProperties) {
+        this.emailProperties = emailProperties;
+    }
+
+    public String getTemplate() {
+        return template;
+    }
+
+    public void setTemplate(String template) {
+        this.template = template;
+    }
+    
+    
     /**
      * Creates new form PanelEmailPreview
      */
     public PanelEmailPreview() {
         initComponents();
+        
+        HTMLEditorKit kit = new HTMLEditorKit();
+        jEditorPane1.setEditorKit(kit);
+        Document doc = kit.createDefaultDocument();
+        jEditorPane1.setDocument(doc);
+    }
+
+    public void PrevieEmail() throws IOException, URISyntaxException {        
+        String emailPreview = new String();
+        Hashtable<String, String> values = emailRenderer.DecomposeEmailPropertiesIntoTokens(this.emailProperties);
+        emailPreview = GenerateEmailPreview(template, values);
+        jEditorPane1.setText(emailPreview);
+    }
+
+    private String GenerateEmailPreview(String template, 
+            Hashtable<String, String> values) throws IOException, URISyntaxException {
+        String templateSource = new String();
+        String rendition = new String();
+        
+        templateSource = emailRenderer.LoadHTMLTemplate(template);
+        rendition = emailRenderer.RenderEmail(templateSource, values);        
+        
+        return rendition;
     }
 
     /**
@@ -27,25 +89,28 @@ public class PanelEmailPreview extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        emailPreviewLabel = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jEditorPane1 = new javax.swing.JEditorPane();
 
-        emailPreviewLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        emailPreviewLabel.setText("Email preview goes here");
+        jEditorPane1.setEditable(false);
+        jScrollPane1.setViewportView(jEditorPane1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(emailPreviewLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(emailPreviewLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel emailPreviewLabel;
+    private javax.swing.JEditorPane jEditorPane1;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
+
