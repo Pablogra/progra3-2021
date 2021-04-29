@@ -9,6 +9,7 @@ import Business.ActivityType;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -128,7 +129,10 @@ public class PanelActivityTypeAdd extends javax.swing.JPanel {
             at.setDescription(txtActivityTypeDescription.getText());
             at.setPoints(Integer.parseInt(txtActivityTypeDefaultPoints.getText()));
             at.Create();
+            JOptionPane.showMessageDialog(null, "Activity added");
         } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(PanelActivityTypeAdd.class.getName()).log(Level.SEVERE, null, ex);
+        
             Logger.getLogger(PanelActivityTypeAdd.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

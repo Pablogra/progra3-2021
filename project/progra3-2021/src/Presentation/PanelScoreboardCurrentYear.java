@@ -5,6 +5,13 @@
  */
 package Presentation;
 
+import Business.ScoreBoard;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author pablo
@@ -15,8 +22,42 @@ public class PanelScoreboardCurrentYear extends javax.swing.JPanel {
      * Creates new form PanelScoreboardCurrentYear
      */
     public PanelScoreboardCurrentYear() {
-        initComponents();
+        try {
+            initComponents();
+            TableList();
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(PanelScoreboardCurrentYear.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
+    
+     private void TableList() throws SQLException, ClassNotFoundException {
+
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Name");
+        model.addColumn("Points");
+        model.addColumn("Position");
+        
+        ScoreBoard SB = new ScoreBoard();
+
+        ArrayList<ScoreBoard> Table = SB.ShowTableCurrentYear();
+         
+        for (int x = 0; x < Table.size(); x++) {
+            ScoreBoard a = Table.get(x);
+            
+            model.addRow(new Object[]{
+                a.getFullname(),
+                a.getPoints(),
+                a.getIdScore()
+            });
+        }
+
+        tblCurrentYear.setModel(model);
+    }
+    
+    
+    
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -28,11 +69,11 @@ public class PanelScoreboardCurrentYear extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tblCurrentYear = new javax.swing.JTable();
 
-        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        setLayout(new java.awt.BorderLayout());
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tblCurrentYear.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -51,14 +92,29 @@ public class PanelScoreboardCurrentYear extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable2);
+        tblCurrentYear.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblCurrentYearMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tblCurrentYear);
 
-        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, 530, 263));
+        add(jScrollPane2, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tblCurrentYearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCurrentYearMouseClicked
+        try {
+            TableList();
+        } catch (SQLException ex) {
+            Logger.getLogger(PanelScoreboardCurrentYear.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PanelScoreboardCurrentYear.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_tblCurrentYearMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JTable tblCurrentYear;
     // End of variables declaration//GEN-END:variables
 }

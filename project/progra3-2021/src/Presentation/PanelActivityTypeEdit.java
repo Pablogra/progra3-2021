@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -194,7 +195,10 @@ public class PanelActivityTypeEdit extends javax.swing.JPanel {
             at.setDescription(txtActivityTypeDescription.getText());
             at.setPoints(Integer.parseInt(txtActivityTypeDefaultPoints.getText()));
             at.Edit();
+            JOptionPane.showMessageDialog(null, "Activity updated");
         } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(PanelActivityTypeAdd.class.getName()).log(Level.SEVERE, null, ex);
+   
             Logger.getLogger(PanelActivityTypeAdd.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

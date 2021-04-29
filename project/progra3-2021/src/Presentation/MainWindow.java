@@ -5,14 +5,9 @@
  */
 package Presentation;
 
+import Business.ScoreBoard;
 import Business.User;
-import java.awt.ComponentOrientation;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -25,7 +20,9 @@ import javax.swing.SwingUtilities;
 public class MainWindow extends javax.swing.JFrame {
 
     private User currentUser;
-
+    private ScoreBoard scoreboard;
+    private PanelScoreboardAllTime PanelScoreboardAllTime;
+ 
     /**
      * Creates new form MainWindow
      */
@@ -69,11 +66,13 @@ public class MainWindow extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel8 = new javax.swing.JPanel();
+        jButton2 = new javax.swing.JButton();
         tpMainPanel = new javax.swing.JTabbedPane();
         pScoreboard = new javax.swing.JPanel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jTabbedPane2 = new javax.swing.JTabbedPane();
+        panelScoreboardCurrentYear1 = new Presentation.PanelScoreboardCurrentYear();
         try {
-            panelScoreboardAllTime1 = new Presentation.PanelScoreboardAllTime();
+            panelScoreboardAllTime2 = new Presentation.PanelScoreboardAllTime();
         } catch (java.sql.SQLException e1) {
             e1.printStackTrace();
         } catch (java.lang.ClassNotFoundException e2) {
@@ -90,6 +89,8 @@ public class MainWindow extends javax.swing.JFrame {
         panelActivityAdd3 = new Presentation.PanelActivityAdd();
         panelActivityEdit1 = new Presentation.PanelActivityEdit();
         panelActivityEdit2 = new Presentation.PanelActivityEdit();
+        jPanel1 = new javax.swing.JPanel();
+        panelActivityScoreBoard1 = new Presentation.PanelActivityScoreBoard();
         pActivityType = new javax.swing.JPanel();
         jTabbedPane5 = new javax.swing.JTabbedPane();
         jPanel6 = new javax.swing.JPanel();
@@ -112,14 +113,29 @@ public class MainWindow extends javax.swing.JFrame {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
+        jButton2.setText("jButton2");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tech Points");
 
         tpMainPanel.setTabPlacement(javax.swing.JTabbedPane.LEFT);
+        tpMainPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tpMainPanelMouseClicked(evt);
+            }
+        });
 
         pScoreboard.setLayout(new java.awt.BorderLayout());
-        pScoreboard.add(jTabbedPane1, java.awt.BorderLayout.PAGE_START);
-        pScoreboard.add(panelScoreboardAllTime1, java.awt.BorderLayout.CENTER);
+
+        jTabbedPane2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabbedPane2MouseClicked(evt);
+            }
+        });
+        jTabbedPane2.addTab("Current Year", panelScoreboardCurrentYear1);
+        jTabbedPane2.addTab("All Time", panelScoreboardAllTime2);
+
+        pScoreboard.add(jTabbedPane2, java.awt.BorderLayout.CENTER);
 
         tpMainPanel.addTab("Scoreboard", pScoreboard);
 
@@ -187,16 +203,31 @@ public class MainWindow extends javax.swing.JFrame {
             panelActivityEdit1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelActivityEdit1Layout.createSequentialGroup()
                 .addComponent(panelActivityEdit2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 443, Short.MAX_VALUE))
         );
         panelActivityEdit1Layout.setVerticalGroup(
             panelActivityEdit1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelActivityEdit1Layout.createSequentialGroup()
                 .addComponent(panelActivityEdit2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 67, Short.MAX_VALUE))
+                .addGap(0, 148, Short.MAX_VALUE))
         );
 
         jTabbedPane4.addTab("Edit", panelActivityEdit1);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panelActivityScoreBoard1, javax.swing.GroupLayout.DEFAULT_SIZE, 1168, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(panelActivityScoreBoard1, javax.swing.GroupLayout.PREFERRED_SIZE, 584, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 60, Short.MAX_VALUE))
+        );
+
+        jTabbedPane4.addTab("Score Activity", jPanel1);
 
         javax.swing.GroupLayout pActivityLayout = new javax.swing.GroupLayout(pActivity);
         pActivity.setLayout(pActivityLayout);
@@ -288,7 +319,7 @@ public class MainWindow extends javax.swing.JFrame {
             pEmailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pEmailsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 638, Short.MAX_VALUE)
+                .addComponent(jTabbedPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 616, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -306,9 +337,8 @@ public class MainWindow extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addComponent(tpMainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 654, Short.MAX_VALUE)
-                .addContainerGap())
+                .addContainerGap()
+                .addComponent(tpMainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 645, Short.MAX_VALUE))
         );
 
         pack();
@@ -327,6 +357,14 @@ public class MainWindow extends javax.swing.JFrame {
             Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_panelUsersEdit1FocusGained
+
+    private void tpMainPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tpMainPanelMouseClicked
+
+    }//GEN-LAST:event_tpMainPanelMouseClicked
+
+    private void jTabbedPane2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane2MouseClicked
+
+    }//GEN-LAST:event_jTabbedPane2MouseClicked
 
     /**
      * @param args the command line arguments
@@ -364,12 +402,14 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton2;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel8;
-    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTabbedPane jTabbedPane3;
     private javax.swing.JTabbedPane jTabbedPane4;
     private javax.swing.JTabbedPane jTabbedPane5;
@@ -383,10 +423,12 @@ public class MainWindow extends javax.swing.JFrame {
     private Presentation.PanelActivityAdd panelActivityAdd3;
     private Presentation.PanelActivityEdit panelActivityEdit1;
     private Presentation.PanelActivityEdit panelActivityEdit2;
+    private Presentation.PanelActivityScoreBoard panelActivityScoreBoard1;
     private Presentation.PanelActivityTypeAdd panelActivityTypeAdd2;
     private Presentation.PanelActivityTypeEdit panelActivityTypeEdit1;
     private Presentation.PanelEmailsEdit panelEmailsEdit1;
-    private Presentation.PanelScoreboardAllTime panelScoreboardAllTime1;
+    private Presentation.PanelScoreboardAllTime panelScoreboardAllTime2;
+    private Presentation.PanelScoreboardCurrentYear panelScoreboardCurrentYear1;
     private Presentation.PanelUsersAdd panelUsersAdd1;
     private Presentation.PanelUsersEdit panelUsersEdit1;
     private javax.swing.JTabbedPane tpMainPanel;
