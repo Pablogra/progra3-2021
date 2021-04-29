@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.mail.MessagingException;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -25,6 +26,7 @@ public class PanelUsersAdd extends javax.swing.JPanel {
      */
     public PanelUsersAdd() {
         initComponents();
+
 
     }
 
@@ -44,8 +46,6 @@ public class PanelUsersAdd extends javax.swing.JPanel {
         txtUserName = new javax.swing.JTextField();
         txtFullName = new javax.swing.JTextField();
         txtEmail = new javax.swing.JTextField();
-        btnImage = new javax.swing.JLabel();
-        btnUpload = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
         txtpassword = new javax.swing.JPasswordField();
         checkBoxIsAdmin = new javax.swing.JCheckBox();
@@ -67,21 +67,13 @@ public class PanelUsersAdd extends javax.swing.JPanel {
         add(txtFullName, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 42, 171, -1));
         add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 79, 171, -1));
 
-        btnImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnImage.setText("Imagen de perfil");
-        btnImage.setBorder(new javax.swing.border.MatteBorder(null));
-        add(btnImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 50, 90, 90));
-
-        btnUpload.setText("Upload");
-        add(btnUpload, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 10, -1, -1));
-
         btnSave.setText("Save");
         btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSaveActionPerformed(evt);
             }
         });
-        add(btnSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 160, 70, -1));
+        add(btnSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 180, 70, -1));
         add(txtpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 110, 170, -1));
 
         checkBoxIsAdmin.setText("Admin");
@@ -94,26 +86,26 @@ public class PanelUsersAdd extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-       
+
         User u = new User();
         u.setUserName(txtUserName.getText());
         u.setFullName(txtFullName.getText());
-        u.setEmail(txtEmail.getText());  
+        u.setEmail(txtEmail.getText());
         u.setPassword(txtpassword.getText());
         u.setStatus(true);
         u.setIsAdmin(checkBoxIsAdmin.isSelected());
         try {
-            try {
-                u.Create();
-            } catch (MessagingException | IOException | URISyntaxException ex) {
-                Logger.getLogger(PanelUsersAdd.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            u.Create();
+            JOptionPane.showMessageDialog(null, "User " + u.getUserName() + " created");
+            cleanTxtBox();
+
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(PanelUsersAdd.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Username already exists");
+            JOptionPane.showMessageDialog(null, "Please try again");
             String error = ex.getMessage();
             Logger.getLogger(PanelUsersAdd.class.getName()).log(Level.SEVERE, null, ex);
+         
         }
 
     }//GEN-LAST:event_btnSaveActionPerformed
@@ -122,11 +114,16 @@ public class PanelUsersAdd extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_checkBoxIsAdminActionPerformed
 
+    private void cleanTxtBox() {
+        txtUserName.setText("");
+        txtFullName.setText("");
+        txtEmail.setText("");
+        txtpassword.setText("");
+        checkBoxIsAdmin.setSelected(false);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel btnImage;
     private javax.swing.JButton btnSave;
-    private javax.swing.JButton btnUpload;
     private javax.swing.JCheckBox checkBoxIsAdmin;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;

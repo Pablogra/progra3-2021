@@ -24,13 +24,15 @@ public class DialogLogin extends javax.swing.JDialog {
     public void setCurretUser(User CurretUser) {
         this.CurrentUser = CurretUser;
     }
-    
+
     
     /**
      * Creates new form DialogLogin
      */
     public DialogLogin(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        setResizable(false); //no cambiar el tamano
+        setTitle("Login");
         initComponents();
         this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
     }
@@ -124,10 +126,9 @@ public class DialogLogin extends javax.swing.JDialog {
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
-       
+
     }//GEN-LAST:event_txtPasswordActionPerformed
 
-   
     /**
      * @param args the command line arguments
      */

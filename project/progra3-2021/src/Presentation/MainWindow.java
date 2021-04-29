@@ -6,10 +6,12 @@
 package Presentation;
 
 import Business.User;
+import java.awt.ComponentOrientation;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,17 +25,25 @@ import javax.swing.SwingUtilities;
 public class MainWindow extends javax.swing.JFrame {
 
     private User currentUser;
+
     /**
      * Creates new form MainWindow
      */
-    public MainWindow() {        
-        JFrame rootWindowComponent = (JFrame)SwingUtilities.getRoot(this);
-        final DialogLogin loginDialog = new  DialogLogin(rootWindowComponent, true);
-        loginDialog.pack();
-        loginDialog.setVisible(true);
+    public MainWindow() {
+        JFrame rootWindowComponent = (JFrame) SwingUtilities.getRoot(this);
+        DialogLogin loginDialog = Login(rootWindowComponent);
         initComponents();
         currentUser = loginDialog.getCurretUser();
-        SetAdminUIComponents();        
+        SetAdminUIComponents();
+        setResizable(false); //no cambiar el tamano
+        setTitle("Tech points");
+    }
+
+    private DialogLogin Login(JFrame rootWindowComponent) {
+        final DialogLogin loginDialog = new DialogLogin(rootWindowComponent, true);
+        loginDialog.pack();
+        loginDialog.setVisible(true);
+        return loginDialog;
     }
 
     private void SetAdminUIComponents() {
@@ -48,7 +58,7 @@ public class MainWindow extends javax.swing.JFrame {
     private boolean IsAdminUser(User user) {
         return user.isAdmin();
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -114,6 +124,12 @@ public class MainWindow extends javax.swing.JFrame {
         tpMainPanel.addTab("Scoreboard", pScoreboard);
 
         jTabbedPane3.addTab("Add", panelUsersAdd1);
+
+        panelUsersEdit1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                panelUsersEdit1FocusGained(evt);
+            }
+        });
         jTabbedPane3.addTab("Edit", panelUsersEdit1);
 
         javax.swing.GroupLayout pUsersLayout = new javax.swing.GroupLayout(pUsers);
@@ -272,7 +288,7 @@ public class MainWindow extends javax.swing.JFrame {
             pEmailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pEmailsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
+                .addComponent(jTabbedPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 638, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -283,15 +299,16 @@ public class MainWindow extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(30, Short.MAX_VALUE)
+                .addContainerGap(22, Short.MAX_VALUE)
                 .addComponent(tpMainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 1278, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(14, 14, 14))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(tpMainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 631, Short.MAX_VALUE))
+                .addGap(32, 32, 32)
+                .addComponent(tpMainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 654, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -300,6 +317,16 @@ public class MainWindow extends javax.swing.JFrame {
     private void jTabbedPane6FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTabbedPane6FocusGained
         panelEmailsEdit1.LoadEmails();
     }//GEN-LAST:event_jTabbedPane6FocusGained
+
+    private void panelUsersEdit1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_panelUsersEdit1FocusGained
+        try {
+            panelUsersEdit1.LoadUsers();
+        } catch (SQLException ex) {
+            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_panelUsersEdit1FocusGained
 
     /**
      * @param args the command line arguments

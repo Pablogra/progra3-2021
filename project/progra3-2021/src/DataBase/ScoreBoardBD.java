@@ -6,6 +6,7 @@
 package DataBase;
 
 import Business.ScoreBoard;
+import Business.User;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Formatter;
@@ -17,6 +18,7 @@ import java.util.Formatter;
 public class ScoreBoardBD {
 
     private ScoreBoard ScoreBoard;
+    private User user;
 
     public ScoreBoardBD() {
     }
@@ -50,6 +52,7 @@ public class ScoreBoardBD {
         con.setWaitForResults(true);
         con.ExecuteQuery();
         return con.getRs();
+        
     }
 
 }
