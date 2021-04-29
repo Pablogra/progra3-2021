@@ -6,11 +6,16 @@
 package Business;
 
 import DataBase.UsersDB;
+import Emailer.EmailProperties;
+import Emailer.EmailRenderer;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.mail.MessagingException;
 
 /**
  *
@@ -25,6 +30,8 @@ public class User {
     private String password;
     private boolean status;
     private boolean isAdmin;
+    
+    EmailRenderer emailRenderer = new EmailRenderer();
 
     public User(int userID, String userName, String fullName, String email, String password, boolean status, boolean isAdmin) {
         this.userID = userID;
@@ -59,12 +66,6 @@ public class User {
         return isAdmin;
     }
 
-    public void setIsAdmin(boolean isAdmin) {
-        this.isAdmin = isAdmin;
-    }
-
-    
-    
     public String getUserName() {
         return userName;
     }
@@ -105,17 +106,17 @@ public class User {
         this.status = status;
     }
 
-    public void Create() throws ClassNotFoundException, SQLException {
+    public void Create() throws ClassNotFoundException, SQLException, MessagingException, IOException, URISyntaxException {
         UsersDB udb = new UsersDB();
         udb.setUser(this);
         udb.Create();
+        emailRenderer.SendEmail(email, fullName, 1);
     }
 
     public void Edit() throws ClassNotFoundException, SQLException {
         UsersDB udb = new UsersDB();
         udb.setUser(this);
         udb.Edit();
-
     }
 
     public void Delete() throws ClassNotFoundException, SQLException {

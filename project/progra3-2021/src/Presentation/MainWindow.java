@@ -253,6 +253,11 @@ public class MainWindow extends javax.swing.JFrame {
 
         tpMainPanel.addTab("Activity Type", pActivityType);
 
+        jTabbedPane6.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTabbedPane6FocusGained(evt);
+            }
+        });
         jTabbedPane6.addTab("Edit", panelEmailsEdit1);
 
         javax.swing.GroupLayout pEmailsLayout = new javax.swing.GroupLayout(pEmails);
@@ -291,6 +296,10 @@ public class MainWindow extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTabbedPane6FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTabbedPane6FocusGained
+        panelEmailsEdit1.LoadEmails();
+    }//GEN-LAST:event_jTabbedPane6FocusGained
 
     /**
      * @param args the command line arguments

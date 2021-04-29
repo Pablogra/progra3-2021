@@ -5,6 +5,10 @@
  */
 package Presentation;
 
+import Emailer.EmailProperties;
+import java.io.IOException;
+import java.net.URISyntaxException;
+
 /**
  *
  * @author pablo
@@ -19,6 +23,12 @@ public class DialogEmailPreview extends javax.swing.JDialog {
         initComponents();
     }
 
+    public void PreviewEmail(String template, EmailProperties emailProperties) 
+            throws IOException, URISyntaxException {
+        panelEmailPreview1.setEmailProperties(emailProperties);
+        panelEmailPreview1.setTemplate(template);
+        panelEmailPreview1.PrevieEmail();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

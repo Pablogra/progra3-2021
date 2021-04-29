@@ -6,9 +6,12 @@
 package Presentation;
 
 import Business.User;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.mail.MessagingException;
 import javax.swing.JOptionPane;
 
 /**
@@ -100,7 +103,11 @@ public class PanelUsersAdd extends javax.swing.JPanel {
         u.setStatus(true);
         u.setIsAdmin(checkBoxIsAdmin.isSelected());
         try {
-            u.Create();
+            try {
+                u.Create();
+            } catch (MessagingException | IOException | URISyntaxException ex) {
+                Logger.getLogger(PanelUsersAdd.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(PanelUsersAdd.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
